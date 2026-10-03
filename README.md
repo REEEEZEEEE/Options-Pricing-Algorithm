@@ -6,11 +6,11 @@ A Python-based quantitative finance tool that scans market data, calculates theo
 
 * **Multi-Model Option Pricing Engine**:
 
-  * **Black-Scholes Model**: Closed-form analytical pricing for European-style options.
+  * **Black-Scholes Model**: Closed-form analytical pricing for options.
 
-  * **Binomial Tree Model (Cox-Ross-Rubinstein)**: Discrete-time lattice model accounting for early exercise features (American options).
+  * **Binomial Tree Model (Cox-Ross-Rubinstein)**: Discrete-time lattice model accounting for early exercise features for American options.
 
-  * **Monte Carlo Simulation** *(Planned / In Progress)*: Stochastic path simulation for European and exotic options using Geometric Brownian Motion (GBM).
+  * **Monte Carlo Simulation** *(Planned / In Progress)*: Stochastic path simulation for  options using Geometric Brownian Motion (GBM).
 
 * **Automated Market Data Ingestion**:
 
