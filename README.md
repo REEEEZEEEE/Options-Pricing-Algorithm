@@ -49,17 +49,17 @@ pip install -r requirements.txt
 
 ```
 
+### Downloading as ZIP
+
+Another way to install. Click the green code button and download as ZIP. Go to downloads and extract the folder.
+
 ## Usage
 
-### 1. Downloading
-
-Click the green code button and download as ZIP. Go to downloads and extract the folder.
-
-### 2. Terminal
+### 1. Terminal
 
 Go to the folder where all the python scrips are. Right click inside of the folder but not on any scripts and press "open in terminal"
 
-### 3. Running the Scanner
+### 2. Running the Scanner
 
 To execute the standard scan across all S&P 500 stocks inside the opened terminal:
 
@@ -70,7 +70,7 @@ python sandpPricingAlgorithm.py
 
 ```
 
-### 4. Settings
+### 3. Settings
 
 When asked what url you want, put a Wikipedia url that has a table of stocks. If you hit enter with it being empty it will use the S&P 500. Example:
 
