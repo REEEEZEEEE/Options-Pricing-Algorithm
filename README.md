@@ -118,7 +118,9 @@ Discounts the expected terminal payoff back to time zero.
 
 * Add CLI arguments for importing custom CSV/Excel file URLs or local file paths for stock ticker inputs.
 
-* Implement multi-threading (`concurrent.futures`) for accelerated stock universe processing.
+* Allow users to set the time ranges
+
+* Allow users to set the name of the file it outputs
 
 * Support put options evaluation and delta/gamma Greeks calculation.
 
