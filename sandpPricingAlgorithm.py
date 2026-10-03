@@ -11,6 +11,7 @@ import openpyxl
 from tqdm import tqdm
 from binomialTreePricing import binomialTreeOptionValue
 from blackScholesModel import blackScholesModel
+from monteCarloPricing import monteCarloPricing
 
 def findClosestDate(tickerDates, time):
     if tickerDates:
@@ -31,7 +32,6 @@ def findClosestDate(tickerDates, time):
         puts = opt_chain.puts
         return calls, days, date1.date()
     else:
-        print("No options data available for this stock.")
         return pd.DataFrame(), None, None
 
 def getVolatility(hist):
@@ -64,8 +64,11 @@ print(r"""
                         \______/           
       """)
 
+dateList=input("What days to expiration do you want:")
 print("Starting Pricing Algorithm...")
 annual_rate = getRiskFreeIntrestRate()
+dates=dateList.split()
+dates1=[int(x) for x in dates]
 url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
 
 headers = {
@@ -89,50 +92,25 @@ for symbol, ticker in tqdm(tickers1.tickers.items(), desc="Analyzing"):
     available_dates = ticker.options
     if(available_dates==None):
         continue
-    monthCalls, monthDays, monthExpire=findClosestDate(available_dates,30)
-    weekCalls, weekDays, weekExpire=findClosestDate(available_dates,7)
-    dayCalls, dayDays, dayExpire=findClosestDate(available_dates,1)
-    if (monthCalls.empty==True or weekCalls.empty==True or dayCalls.empty==True):
-        continue
     hist = ticker.history(period="1mo") 
     annualized_volatility=getVolatility(hist)
-    
-    for row in dayCalls.itertuples(index=True):
-        price=blackScholesModel(currentPrice, row.strike,annualized_volatility, annual_rate, dayDays)
-        currentAsk=row.ask
-        if (price>currentAsk+.01 and currentAsk>0):
-            treePrice=binomialTreeOptionValue(currentPrice, row.strike, annualized_volatility, annual_rate, dayDays, 10)
-            if (treePrice>currentAsk+.01):
-                treePrice=round(treePrice,2)
-                price=round(price, 2)
-                percentIncrease = round(((price - currentAsk) / currentAsk), 2)
-                #print(f"Ticker: {ticker.ticker}, Expires: {dayExpire}, Strike Price: {row.strike}, Price: {price}, Asking Amount: {currentAsk}, Difference: {percentIncrease}%")
-                newrow=pd.DataFrame({"Ticker": [ticker.ticker], "Expires": [dayExpire], "Current Price": [currentPrice], "Strike Price": [row.strike], "Calculated Option Price": [price], "BinomialTree Price": [treePrice], "Asking Amount": [currentAsk], "Difference": [percentIncrease]})
-                list=pd.concat([list, newrow], ignore_index=True)
-    for row in weekCalls.itertuples(index=True):
-        price=blackScholesModel(currentPrice, row.strike,annualized_volatility, annual_rate, weekDays)
-        currentAsk=row.ask
-        if (price>currentAsk+.01 and currentAsk>0):
-            treePrice=binomialTreeOptionValue(currentPrice, row.strike, annualized_volatility, annual_rate, weekDays, 30)
-            if (treePrice>currentAsk+.01):
-                price=round(price, 2)
-                treePrice=round(treePrice, 2)
-                percentIncrease = round(((price - currentAsk) / currentAsk), 2)
-                #print(f"Ticker: {ticker.ticker}, Expires: {weekExpire}, Strike Price: {row.strike}, Price: {price}, Asking Amount: {currentAsk}, Difference: {percentIncrease}%")
-                newrow=pd.DataFrame({"Ticker": [ticker.ticker], "Expires": [weekExpire],"Current Price": [currentPrice], "Strike Price": [row.strike], "Calculated Option Price": [price], "BinomialTree Price": [treePrice], "Asking Amount": [currentAsk], "Difference": [percentIncrease]})
-                list=pd.concat([list, newrow], ignore_index=True)
-    for row in monthCalls.itertuples(index=True):
-        price=blackScholesModel(currentPrice, row.strike,annualized_volatility, annual_rate, monthDays)
-        currentAsk=row.ask
-        if (price>currentAsk+.01 and currentAsk>0):
-            treePrice=binomialTreeOptionValue(currentPrice, row.strike, annualized_volatility, annual_rate, monthDays, 50)
-            if (treePrice>currentAsk+.01):
-                price=round(price, 2)
-                treePrice=round(treePrice, 2)
-                percentIncrease = round(((price - currentAsk) / currentAsk), 2)
-                #print(f"Ticker: {ticker.ticker}, Expires: {monthExpire}, Strike Price: {row.strike}, Price: {price}, Asking Amount: {currentAsk}, Difference: {percentIncrease}%")
-                newrow=pd.DataFrame({"Ticker": [ticker.ticker], "Expires": [monthExpire],"Current Price": [currentPrice], "Strike Price": [row.strike], "Calculated Option Price": [price], "BinomialTree Price": [treePrice], "Asking Amount": [currentAsk], "Difference": [percentIncrease]})
-                list=pd.concat([list, newrow], ignore_index=True)
+    for date in dates1:
+        dayCalls, dayDays, dayExpire=findClosestDate(available_dates,date)
+        if (dayCalls.empty==True):
+            continue
+        for row in dayCalls.itertuples(index=True):
+            price=blackScholesModel(currentPrice, row.strike,annualized_volatility, annual_rate, dayDays)
+            currentAsk=row.ask
+            if (price>currentAsk+.01 and currentAsk>0):
+                treePrice=binomialTreeOptionValue(currentPrice, row.strike, annualized_volatility, annual_rate, dayDays, 10)
+                if (treePrice>currentAsk+.01):
+                    carloPrice=monteCarloPricing(currentPrice, row.strike, annualized_volatility, annual_rate, dayDays)
+                    if (carloPrice>currentAsk+.01 and currentAsk>0):
+                        treePrice=round(treePrice,2)
+                        price=round(price, 2)
+                        percentIncrease = round(((treePrice - currentAsk) / currentAsk), 2)
+                        newrow=pd.DataFrame({"Ticker": [ticker.ticker], "Expires": [dayExpire], "Current Price": [currentPrice], "Strike Price": [row.strike], "Calculated Option Price": [price], "BinomialTree Price": [treePrice], "Monte Carlo Price":[round(carloPrice,2)],  "Asking Amount": [currentAsk], "Difference": [percentIncrease]})
+                        list=pd.concat([list, newrow], ignore_index=True)
 list.sort_values(by="Difference", inplace=True, ascending=False)
 list.to_excel("UndervaluedOptions.xlsx", index=False)
 end_time = time.perf_counter()
