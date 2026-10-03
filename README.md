@@ -130,11 +130,11 @@ Discounts the expected terminal payoff back to time zero.
 
 * Fix and calibrate Binomial Tree American option valuation engine. (Done)
 
-* Implement Monte Carlo option valuation engine with configurable sample size.
+* Implement Monte Carlo option valuation engine with configurable sample size. (Done)
 
 * Add CLI arguments for importing custom CSV/Excel file URLs or local file paths for stock ticker inputs.
 
-* Allow users to set the time ranges
+* Allow users to set the time ranges (Done)
 
 * Allow users to set the name of the file it outputs
 
