@@ -9,6 +9,7 @@ import io
 import time
 import openpyxl
 from tqdm import tqdm
+import sys
 from binomialTreePricing import binomialTreeOptionValue
 from blackScholesModel import blackScholesModel
 from monteCarloPricing import monteCarloPricing
@@ -64,22 +65,34 @@ print(r"""
                         \______/           
       """)
 
-dateList=input("What days to expiration do you want:")
+url=input("What url do you want this algorithm to sort through: ")
+dateList=input("What days to expiration do you want: ")
+output=input("What file name do you want to save this as: ")
 print("Starting Pricing Algorithm...")
 annual_rate = getRiskFreeIntrestRate()
 dates=dateList.split()
 dates1=[int(x) for x in dates]
-url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
+if not url:
+    url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
 }
 
 response = requests.get(url, headers=headers)
-tickers = pd.read_html(io.StringIO(response.text))[0]
-tickers=tickers['Symbol'].tolist()
-# Clean ticker symbols for yfinance (e.g., BRK.B -> BRK-B)
-tickers = [t.replace('.', '-') for t in tickers]
+
+try:
+    tables = pd.read_html(io.StringIO(response.text))
+    tickers_df = tables[0]
+except ValueError:
+    print("No table was found")
+    sys.exit()
+
+# Get ticker symbols
+tickers = tickers_df["Symbol"].dropna().astype(str).tolist()
+
+# Clean ticker symbols for Yahoo Finance
+tickers = [ticker.replace(".", "-") for ticker in tickers]
 tickers1=yf.Tickers(tickers)
 list=pd.DataFrame()
 i=0
@@ -112,7 +125,7 @@ for symbol, ticker in tqdm(tickers1.tickers.items(), desc="Analyzing"):
                         newrow=pd.DataFrame({"Ticker": [ticker.ticker], "Expires": [dayExpire], "Current Price": [currentPrice], "Strike Price": [row.strike], "Calculated Option Price": [price], "BinomialTree Price": [treePrice], "Monte Carlo Price":[round(carloPrice,2)],  "Asking Amount": [currentAsk], "Difference": [percentIncrease]})
                         list=pd.concat([list, newrow], ignore_index=True)
 list.sort_values(by="Difference", inplace=True, ascending=False)
-list.to_excel("UndervaluedOptions.xlsx", index=False)
+list.to_excel(f"{output}.xlsx", index=False)
 end_time = time.perf_counter()
 print(f"Finished in {round(end_time-start_time,2)} seconds")
 print("Remember to set the difference column to percent in excel to see the actual value.")
