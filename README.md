@@ -108,43 +108,19 @@ Discounts the expected terminal payoff back to time zero.
 
 ## Roadmap
 
-* $$
-  x
-  $$
+* Integrate Yahoo Finance (`yfinance`) automated retrieval. (Done)
 
-  Integrate Yahoo Finance (`yfinance`) automated retrieval.
+* Implement Black-Scholes European call pricing. (Done)
 
-* $$
-  x
-  $$
+* Fix and calibrate Binomial Tree American option valuation engine. (Done)
 
-  Implement Black-Scholes European call pricing.
+*Implement Monte Carlo option valuation engine with configurable sample size.
 
-* $$
-  x
-  $$
+*Add CLI arguments for importing custom CSV/Excel file URLs or local file paths for stock ticker inputs.
 
-  Fix and calibrate Binomial Tree American option valuation engine.
+* Implement multi-threading (`concurrent.futures`) for accelerated stock universe processing.
 
-*$$
-
- $$
-  Implement Monte Carlo option valuation engine with configurable sample size.
-
-* $$
-
-  $$
- Add CLI arguments for importing custom CSV/Excel file URLs or local file paths for stock ticker inputs.
-
-*$$
-
- $$
- Implement multi-threading (`concurrent.futures`) for accelerated stock universe processing.
-
-* $$
-
- $$
- Support put options evaluation and delta/gamma Greeks calculation.
+* Support put options evaluation and delta/gamma Greeks calculation.
 
 ## License
 
