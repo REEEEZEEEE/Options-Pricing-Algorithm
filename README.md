@@ -126,13 +126,25 @@ Discounts the expected terminal payoff back to time zero.
 
   Fix and calibrate Binomial Tree American option valuation engine.
 
-* Implement Monte Carlo option valuation engine with configurable sample size.
+*$$
 
-* Add CLI arguments for importing custom CSV/Excel file URLs or local file paths for stock ticker inputs.
+ $$
+  Implement Monte Carlo option valuation engine with configurable sample size.
 
-* Implement multi-threading (`concurrent.futures`) for accelerated stock universe processing.
+* $$
 
-* Support put options evaluation and delta/gamma Greeks calculation.
+  $$
+ Add CLI arguments for importing custom CSV/Excel file URLs or local file paths for stock ticker inputs.
+
+*$$
+
+ $$
+ Implement multi-threading (`concurrent.futures`) for accelerated stock universe processing.
+
+* $$
+
+ $$
+ Support put options evaluation and delta/gamma Greeks calculation.
 
 ## License
 
