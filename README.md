@@ -41,18 +41,10 @@ Ensure you have Python 3.8+ installed on your system.
 Clone this repository and install the required Python packages:
 
 ```
-git clone https://github.com/your-username/option-pricing-scanner.git
-cd option-pricing-scanner
+git clone https://github.com/REEEEZEEEE/Options-Pricing-Algorithm.git
+cd Options-Pricing-Algorithm
 pip install -r requirements.txt
 
-```
-
-#### Required Packages
-
-Create a `requirements.txt` file or install directly:
-
-```
-pip install yfinance pandas numpy scipy openpyxl requests lxml
 
 ```
 
@@ -63,7 +55,8 @@ pip install yfinance pandas numpy scipy openpyxl requests lxml
 To execute the standard scan across all S&P 500 stocks:
 
 ```
-python main.py
+python sandpPricingAlgorithm.py
+
 
 ```
 
@@ -113,19 +106,47 @@ Discounts the expected terminal payoff back to time zero.
 
 ## Roadmap
 
-* \[x\] Integrate Yahoo Finance (`yfinance`) automated retrieval.
+* $$
+  x
+  $$
 
-* \[x\] Implement Black-Scholes European call pricing.
+   Integrate Yahoo Finance (`yfinance`) automated retrieval.
 
-* \[x\] Fix and calibrate Binomial Tree American option valuation engine.
+* $$
+  x
+  $$
 
-* \[ \] Implement Monte Carlo option valuation engine with configurable sample size.
+   Implement Black-Scholes European call pricing.
 
-* \[ \] Add CLI arguments for importing custom CSV/Excel file URLs or local file paths for stock ticker inputs.
+* $$
+  x
+  $$
 
-* \[ \] Implement multi-threading (`concurrent.futures`) for accelerated stock universe processing.
+   Fix and calibrate Binomial Tree American option valuation engine.
 
-* \[ \] Support put options evaluation and delta/gamma Greeks calculation.
+* $$
+  
+  $$
+
+   Implement Monte Carlo option valuation engine with configurable sample size.
+
+* $$
+  
+  $$
+
+   Add CLI arguments for importing custom CSV/Excel file URLs or local file paths for stock ticker inputs.
+
+* $$
+  
+  $$
+
+   Implement multi-threading (`concurrent.futures`) for accelerated stock universe processing.
+
+* $$
+  
+  $$
+
+   Support put options evaluation and delta/gamma Greeks calculation.
 
 ## License
 
