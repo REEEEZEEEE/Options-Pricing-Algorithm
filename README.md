@@ -72,9 +72,27 @@ python sandpPricingAlgorithm.py
 
 ### 4. Settings
 
+When asked what url you want, put a Wikipedia url that has a table of stocks. If you hit enter with it being empty it will use the S&P 500. Example:
+
+```
+https://en.wikipedia.org/wiki/List_of_S%26P_500_companies
+
+
+```
+
 When asked what time to expiration put in as many days as you want, separated by one space each, and hit the "enter" key. It will automatically find the expiration date closest to your inputted value. Example:
+
 ```
 1 7 30
+
+
+```
+
+When asked what output you want, just put a name with no periods. It will output as a Excel spreadsheet. Example:
+
+```
+UndervaluedOptions
+
 
 ```
 
@@ -132,11 +150,11 @@ Discounts the expected terminal payoff back to time zero.
 
 * Implement Monte Carlo option valuation engine with configurable sample size. (Done)
 
-* Add CLI arguments for importing custom CSV/Excel file URLs or local file paths for stock ticker inputs.
+* Allow custom urls of stocks to use. (Done)
 
-* Allow users to set the time ranges (Done)
+* Allow users to set the time ranges. (Done)
 
-* Allow users to set the name of the file it outputs
+* Allow users to set the name of the file it outputs. (Done)
 
 * Support put options evaluation and delta/gamma Greeks calculation.
 
