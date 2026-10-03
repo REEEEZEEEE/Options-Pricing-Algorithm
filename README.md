@@ -46,6 +46,7 @@ cd Options-Pricing-Algorithm
 pip install -r requirements.txt
 
 
+
 ```
 
 ## Usage
@@ -56,6 +57,7 @@ To execute the standard scan across all S&P 500 stocks:
 
 ```
 python sandpPricingAlgorithm.py
+
 
 
 ```
@@ -110,43 +112,27 @@ Discounts the expected terminal payoff back to time zero.
   x
   $$
 
-   Integrate Yahoo Finance (`yfinance`) automated retrieval.
+  Integrate Yahoo Finance (`yfinance`) automated retrieval.
 
 * $$
   x
   $$
 
-   Implement Black-Scholes European call pricing.
+  Implement Black-Scholes European call pricing.
 
 * $$
   x
   $$
 
-   Fix and calibrate Binomial Tree American option valuation engine.
+  Fix and calibrate Binomial Tree American option valuation engine.
 
-* $$
-  
-  $$
+* Implement Monte Carlo option valuation engine with configurable sample size.
 
-   Implement Monte Carlo option valuation engine with configurable sample size.
+* Add CLI arguments for importing custom CSV/Excel file URLs or local file paths for stock ticker inputs.
 
-* $$
-  
-  $$
+* Implement multi-threading (`concurrent.futures`) for accelerated stock universe processing.
 
-   Add CLI arguments for importing custom CSV/Excel file URLs or local file paths for stock ticker inputs.
-
-* $$
-  
-  $$
-
-   Implement multi-threading (`concurrent.futures`) for accelerated stock universe processing.
-
-* $$
-  
-  $$
-
-   Support put options evaluation and delta/gamma Greeks calculation.
+* Support put options evaluation and delta/gamma Greeks calculation.
 
 ## License
 
