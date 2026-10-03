@@ -73,10 +73,10 @@ python sandpPricingAlgorithm.py
 ### 4. Settings
 
 When asked what time to expiration put in as many days as you want, separated by one space each, and hit the "enter" key. It will automatically find the expiration date closest to your inputted value. Example:
-'''
+```
 1 7 30
 
-'''
+```
 
 The script will process each stock, compute annualized volatility from historical prices, evaluate call options across short-term horizons, and save output results into `UndervaluedOptions.xlsx`.
 
