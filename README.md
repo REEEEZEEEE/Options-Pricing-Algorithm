@@ -59,7 +59,7 @@ Click the green code button and download as ZIP. Go to downloads and extract the
 
 Go to the folder where all the python scrips are. Right click inside of the folder but not on any scripts and press "open in terminal"
 
-### 3. Running the S&P Scanner
+### 3. Running the Scanner
 
 To execute the standard scan across all S&P 500 stocks inside the opened terminal:
 
@@ -69,6 +69,14 @@ python sandpPricingAlgorithm.py
 
 
 ```
+
+### 4. Settings
+
+When asked what time to expiration put in as many days as you want, separated by one space each, and hit the "enter" key. It will automatically find the expiration date closest to your inputted value. Example:
+'''
+1 7 30
+
+'''
 
 The script will process each stock, compute annualized volatility from historical prices, evaluate call options across short-term horizons, and save output results into `UndervaluedOptions.xlsx`.
 
